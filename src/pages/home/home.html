@@ -8,13 +8,13 @@
 </ion-header> -->
 
 <ion-content padding>
-  <ion-card *ngFor="let card of cards">
-    <ion-card-header>
+  <ion-card margin-vertical *ngFor="let card of cards" class="chars-card">
+    <ion-card-header class="chars-card__header">
       {{'prop_groups.' + card | translate}}
     </ion-card-header>
-    <ion-list *ngIf="card">
-      <button ion-item *ngFor="let prop of getCardProperties(card)" (click)="toogleLock(prop)">
-         {{'props.' + prop + '.title' | translate}}: {{getTranslatedValue(card, prop)}}
+    <ion-list no-margin *ngIf="card">
+      <button ion-item text-wrap class="chars-card__item" [ngClass]="{'chars-card__item--locked': isPropLocked(prop)}" *ngFor="let prop of getCardProperties(card)" (click)="toogleLock(prop)">
+         <span class="chars-card__item-header">{{'props.' + prop + '.title' | translate}}:</span> {{getTranslatedValue(card, prop)}}
            <ion-icon item-end [name]="isPropLocked(prop) ? 'lock' : 'unlock'"></ion-icon> 
       </button>
     </ion-list>

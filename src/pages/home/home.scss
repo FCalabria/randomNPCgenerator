@@ -1,3 +1,40 @@
 page-home {
-
+  .chars-card {
+    $border: 1px solid map-get($colors, secondary);
+    box-shadow: none;
+    border-bottom: $border;
+    border-top: $border;
+    margin: 0;
+    width: 100%;
+  }
+  .chars-card__header {
+    text-transform: uppercase;
+    color: map-get($colors, dark);
+    font-size: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid map-get($colors, light);
+  }
+  .chars-card__item {
+    color: map-get($colors, dark);
+    .label-md {
+      font-size: 1.6rem;
+    }
+    .icon {
+      color: map-get($colors, light);
+      font-size: 2rem;
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid map-get($colors, light);
+    }
+  }
+  .chars-card__item-header {
+    text-transform: uppercase;
+    font-size: 1.3rem;
+  }
+  .chars-card__item--locked {
+    background-color: map-get($colors, light);
+    .icon {
+      color: white;
+    }
+  }
 }
