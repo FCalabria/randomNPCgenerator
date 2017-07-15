@@ -1,18 +1,25 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-card *ngFor="let card of cards">
+    <ion-card-header>
+      {{'prop_groups.' + card | translate}}
+    </ion-card-header>
+    <ion-list *ngIf="card">
+      <button ion-item *ngFor="let item of getCardItems(card)">
+         {{'props.' + item + '.title' | translate}}: {{getTranslatedValue(card, item)}}
+          <!-- <ion-icon item-end name="unlock"></ion-icon> -->
+      </button>
+    </ion-list>
+  </ion-card>
 </ion-content>
+<ion-footer padding>
+  <button ion-button full (click)="setRandomNpc()">{{'home.randomize' | translate}}</button>
+</ion-footer>

@@ -1,0 +1,114 @@
+{
+  "home": {
+    "randomize": "Randomize!"
+  },
+  "prop_groups": {
+    "appearance": "Appearance",
+    "personality": "Personality",
+    "habilities": "Habilities"
+  },
+  "props": {
+    "age": {
+      "title": "Age",
+      "0": "Child",
+      "1": "Teenager",
+      "2": "Young adult",
+      "3": "Middle aged",
+      "4": "Old adult",
+      "5": "Elder"
+    },
+    "height": {
+      "title": "Height",
+      "0": "Very short",
+      "1": "Short",
+      "2": "Average",
+      "3": "Average",
+      "4": "Tall",
+      "5": "Exceptionally tall"
+    },
+    "constitution": {
+      "title": "Constitution",
+      "0": "Skinny",
+      "1": "Athletic (thin)",
+      "2": "Normal",
+      "3": "Fit",
+      "4": "Bulky",
+      "5": "Fat"
+    },
+    "skin": {
+      "title": "Skin",
+      "0": "Pale",
+      "1": "White",
+      "2": "Yellow",
+      "3": "Tanned",
+      "4": "Olive",
+      "5": "Dark"
+    },
+    "hobbies": {
+      "title": "Hobbies",
+      "0": "Vehicles",
+      "1": "Swimming",
+      "2": "Fighting",
+      "3": "Birds",
+      "4": "Magic tricks",
+      "5": "Stupid movies/songs",
+      "6": "Astrology",
+      "7": "Arts & crafts",
+      "8": "History",
+      "9": "Travel"
+    },
+    "weakness": {
+      "title": "Weakness",
+      "0": "Too confident",
+      "1": "Easy to bribe",
+      "2": "Has a dark secret",
+      "3": "Severe allergy",
+      "4": "Short-tempered",
+      "5": "Has a physical complex"
+    },
+    "virtue": {
+      "title": "Virtue",
+      "0": "Powerfull contacts/family",
+      "1": "Loves to learn",
+      "2": "Good reputation",
+      "3": "Lucky",
+      "4": "People person",
+      "5": "Cautious"
+    },
+    "moral": {
+      "title": "Moral",
+      "0": "A saint",
+      "1": "A good person",
+      "2": "Tries to be good",
+      "3": "Mischievous",
+      "4": "A bad person",
+      "5": "Evil for evil's sake"
+    },
+    "above_avg": {
+      "title": "Above average",
+      "0": "Dancing",
+      "1": "Poetry",
+      "2": "Follow tracks",
+      "3": "Cooking",
+      "4": "Juggling",
+      "5": "Remembering details",
+      "6": "Aiming",
+      "7": "Sewing",
+      "8": "Gardening",
+      "9": "Endurance"
+    },
+    "below_avg": {
+      "title": "Below Average",
+      "0": "Fishing",
+      "1": "Painting",
+      "2": "Reading a map",
+      "3": "Calligraphy",
+      "4": "Singing",
+      "5": "Mental calculation",
+      "6": "Flirting",
+      "7": "Voice impressions",
+      "8": "Cleaning",
+      "9": "Eyesight"
+    }
+  }
+}
