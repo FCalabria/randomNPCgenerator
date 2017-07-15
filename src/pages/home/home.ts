@@ -10,21 +10,34 @@ import { NPC } from '../../classes/npc';
 export class HomePage {
   public customNpc: NPC = new NPC();
   public cards: string[] = Object.keys(this.customNpc);
+  private propertiesLocked: Map<string, boolean> = this.generatePropsLockMap();
   constructor(public translate: TranslateService) {
   }
 
-  /**
-   * getCardItems
-   */
-  getCardItems(cardName: string) {
+  getCardProperties(cardName: string) {
     return Object.keys(this.customNpc[cardName]);
   }
 
   setRandomNpc() {
-    this.customNpc = new NPC();
+    const newNpc = new NPC();
+    for (const group in newNpc) {
+      for(const prop in newNpc[group]) {
+        if (!this.propertiesLocked.get(prop)) {
+          this.customNpc[group][prop] = newNpc[group][prop];
+        }
+      }
+    }
   }
 
-  getPropertyArray(group, property): number[] {
+  toogleLock(property) {
+    this.propertiesLocked.set(property, !this.propertiesLocked.get(property));
+  }
+
+  isPropLocked(property: string) {
+    return this.propertiesLocked.get(property);
+  }
+
+  private getPropertyArray(group, property): number[] {
     const propValue: number[] | number = this.customNpc[group][property];
     return typeof propValue === 'number' ? [propValue] : propValue;
   }
@@ -33,6 +46,14 @@ export class HomePage {
     return this.getPropertyArray(group, property)
       .map(number => this.translate.instant(`props.${property}.${number}`))
       .reduce((prev, current) => !prev ? current : `${prev}, ${current.toLowerCase()}`);
+  }
+
+  private generatePropsLockMap(): Map<any, any> {
+    return new Map(Object.keys(this.customNpc)
+      .map(propGroup => this.customNpc[propGroup])
+      .reduce((prev: string[], next: {}) => prev.concat(Object.keys(next)), [])
+      .map((propName:string) => [propName, false])
+    );
   }
 
 }
