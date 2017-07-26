@@ -8,17 +8,17 @@
 </ion-header> -->
 
 <ion-content padding>
-  <ion-card margin-vertical *ngFor="let card of cards" class="chars-card">
+  <ion-item ion-card margin-vertical *ngFor="let card of cards" class="chars-card">
     <ion-card-header class="chars-card__header">
       {{'prop_groups.' + card | translate}}
     </ion-card-header>
     <ion-list no-margin *ngIf="card">
-      <button ion-item text-wrap class="chars-card__item" [ngClass]="{'chars-card__item--locked': isPropLocked(prop)}" *ngFor="let prop of getCardProperties(card)" (click)="toogleLock(prop)">
+      <ion-item button text-wrap class="chars-card__item" [ngClass]="{'chars-card__item--locked': isPropLocked(prop)}" *ngFor="let prop of getCardProperties(card)" (click)="toogleLock(prop)">
          <span class="chars-card__item-header">{{'props.' + prop + '.title' | translate}}:</span> {{getTranslatedValue(card, prop)}}
            <ion-icon item-end [name]="isPropLocked(prop) ? 'lock' : 'unlock'"></ion-icon> 
-      </button>
+      </ion-item>
     </ion-list>
-  </ion-card>
+  </ion-item>
 </ion-content>
 <ion-footer padding>
   <button ion-button full (click)="setRandomNpc()">{{'home.randomize' | translate}}</button>
