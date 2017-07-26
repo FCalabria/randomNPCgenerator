@@ -42,4 +42,26 @@ page-home {
       color: white;
     }
   }
+  .buttons-footer {
+    display: flex;
+  }
+  .buttons-footer__unlock {
+    opacity: 1;
+    width: auto;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: all 0.25s ease-in-out;
+  }
+  .buttons-footer__unlock--hidden {
+    opacity: 0;
+    transform: scaleX(0);
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+    width: 0;
+    transition-duration: 0.1s;
+  }
+  .buttons-footer__randomize {
+    flex-grow: 1;
+  }
 }

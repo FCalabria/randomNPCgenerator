@@ -18,6 +18,20 @@ export class HomePage {
     return Object.keys(this.customNpc[cardName]);
   }
 
+  hasLockedProps() {
+    let hasLocked = false;
+    this.propertiesLocked.forEach(value => {
+      if (value) hasLocked = true;
+    });
+    return hasLocked;
+  }
+
+  unlockAll() {
+    this.propertiesLocked.forEach((value, key) => {
+      if (value) return this.toogleLock(key);
+    });
+  }
+
   setRandomNpc() {
     const newNpc = new NPC();
     for (const group in newNpc) {

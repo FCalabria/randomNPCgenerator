@@ -20,6 +20,7 @@
     </ion-list>
   </ion-item>
 </ion-content>
-<ion-footer padding>
-  <button ion-button full (click)="setRandomNpc()">{{'home.randomize' | translate}}</button>
+<ion-footer padding class="buttons-footer">
+  <button ion-button (click)="unlockAll()" [ngClass]="{'buttons-footer__unlock--hidden': !hasLockedProps()}" class="buttons-footer__unlock"><ion-icon item-end name="unlock"></ion-icon></button>
+  <button ion-button (click)="setRandomNpc()" class="buttons-footer__randomize">{{'home.randomize' | translate}}</button>
 </ion-footer>
