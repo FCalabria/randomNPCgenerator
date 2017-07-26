@@ -1,4 +1,5 @@
-export class NPC {
+export class NPC{
+  [key:string]: any;
   constructor() {
     const empty = {
       appearance: {
@@ -8,14 +9,14 @@ export class NPC {
         skin: 0,
       },
       personality: {
-        hobbies: [],
+        hobbies: <number[]>[],
         weakness: 0,
         virtue: 0,
         moral: 0,
       },
       habilities: {
-        above_avg: [],
-        below_avg: []
+        above_avg: <number[]>[],
+        below_avg: <number[]>[]
       },
     }
     return this.randomizeProperties(empty);
@@ -33,7 +34,7 @@ export class NPC {
     .filter((n, i, a) => a.indexOf(n) === i);
   }
 
-  randomizeProperties(nestedObject: {}): NPC {
+  randomizeProperties(nestedObject: {[key:string]: any }): NPC {
     for (const mainProp in nestedObject) {
       const mainValue = nestedObject[mainProp];
       for (const prop in mainValue) {

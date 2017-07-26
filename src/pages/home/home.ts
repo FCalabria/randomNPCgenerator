@@ -8,7 +8,7 @@ import { NPC } from '../../classes/npc';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public customNpc: NPC = new NPC();
+  public customNpc = new NPC();
   public cards: string[] = Object.keys(this.customNpc);
   private propertiesLocked: Map<string, boolean> = this.generatePropsLockMap();
   constructor(public translate: TranslateService) {
@@ -43,7 +43,7 @@ export class HomePage {
     }
   }
 
-  toogleLock(property) {
+  toogleLock(property: string) {
     this.propertiesLocked.set(property, !this.propertiesLocked.get(property));
   }
 
@@ -51,12 +51,12 @@ export class HomePage {
     return this.propertiesLocked.get(property);
   }
 
-  private getPropertyArray(group, property): number[] {
+  private getPropertyArray(group: string, property: string): number[] {
     const propValue: number[] | number = this.customNpc[group][property];
     return typeof propValue === 'number' ? [propValue] : propValue;
   }
 
-  getTranslatedValue(group, property) {
+  getTranslatedValue(group: string, property: string) {
     return this.getPropertyArray(group, property)
       .map(number => this.translate.instant(`props.${property}.${number}`))
       .reduce((prev, current) => !prev ? current : `${prev}, ${current.toLowerCase()}`);
