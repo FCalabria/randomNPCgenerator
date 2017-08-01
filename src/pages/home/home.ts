@@ -52,11 +52,15 @@ export class HomePage {
   }
 
   private getPropertyArray(group: string, property: string): number[] {
-    const propValue: number[] | number = this.customNpc[group][property];
-    return typeof propValue === 'number' ? [propValue] : propValue;
+    const propValue: number[] | number | undefined = this.customNpc[group][property];
+    return propValue === undefined 
+      ? []
+      : typeof propValue === 'number' ? [propValue] : propValue;
   }
 
   getTranslatedValue(group: string, property: string) {
+    const propertyArray =  this.getPropertyArray(group, property);
+    if (propertyArray.length === 0) return '---';
     return this.getPropertyArray(group, property)
       .map(number => this.translate.instant(`props.${property}.${number}`))
       .reduce((prev, current) => !prev ? current : `${prev}, ${current.toLowerCase()}`);

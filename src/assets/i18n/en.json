@@ -44,6 +44,33 @@
       "4": "Olive",
       "5": "Dark"
     },
+    "genre": {
+      "title": "Genre",
+      "0": "Male",
+      "1": "Female"
+    },
+    "clothing": {
+      "title": "Clothing style",
+      "0": "Old fashioned",
+      "1": "Normal",
+      "2": "Normal",
+      "3": "Childish",
+      "4": "Modern",
+      "5": "Excentric"
+    },
+    "mark": {
+      "title": "Characteristic mark",
+      "0": "Lot of tattoos",
+      "1": "Small tattoo",
+      "2": "Birth mark",
+      "3": "Limp",
+      "4": "Amazingly handsome",
+      "5": "Has an accent",
+      "6": "Deep voice",
+      "7": "Unusual hair color",
+      "8": "Nervous tic",
+      "9": "Mole/s"
+    },
     "hobbies": {
       "title": "Hobbies",
       "0": "Vehicles",
