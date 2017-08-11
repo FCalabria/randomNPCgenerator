@@ -91,7 +91,12 @@
       "2": "Has a dark secret",
       "3": "Severe allergy",
       "4": "Short-tempered",
-      "5": "Has a physical complex"
+      "5": "Has a physical complex",
+      "6": "Always sick",
+      "7": "Greedy",
+      "8": "Has an addiction",
+      "9": "Really bad memory",
+      "10": "Can't trust anyone"
     },
     "virtue": {
       "title": "Virtue",
@@ -100,7 +105,12 @@
       "2": "Good reputation",
       "3": "Lucky",
       "4": "People person",
-      "5": "Cautious"
+      "5": "Cautious",
+      "6": "Photographic memory",
+      "7": "Creative and resourceful",
+      "8": "Has a gift for cooking/dancing/etc",
+      "9": "Lovely / inspires compassion",
+      "10": "Seems honest and reliable"
     },
     "moral": {
       "title": "Moral",
@@ -110,6 +120,21 @@
       "3": "Mischievous",
       "4": "A bad person",
       "5": "Evil for evil's sake"
+    },
+    "archetype": {
+      "title": "Archetype",
+      "0": "Innocent: optimist and kind",
+      "1": "Everyperson: honest and hardworker",
+      "2": "Hero: disciplined and inspirational",
+      "3": "Caregiver: paternal, trustworthy",
+      "4": "Explorer: independent, adventure seeker",
+      "5": "Lover: experience seeker, people's person",
+      "6": "Revolutionary: different, risk taker",
+      "7": "Creator: creative, perfectionist",
+      "8": "Ruler: a leader, responsible",
+      "9": "Magician: a problem solver, experienced",
+      "10": "Sage: methodical, objective",
+      "11": "Jester: outspoken, funny"
     },
     "above_avg": {
       "title": "Above average",

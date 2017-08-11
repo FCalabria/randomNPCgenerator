@@ -3,6 +3,9 @@ export class NPC {
   propsParams = new Map([
     ['genre', { type: 'number', max: 2, empty: 0 }],
     ['mark', { type: 'number', max: 10, empty: 0.5 }],
+    ['archetype', { type: 'number', max: 12, empty: 0 }],
+    ['weakness', { type: 'number', max: 10, empty: 0 }],
+    ['virtue', { type: 'number', max: 10, empty: 0 }],
   ]);
   constructor() {
     const empty = {
@@ -20,6 +23,7 @@ export class NPC {
         weakness: 0,
         virtue: 0,
         moral: 0,
+        archetype: 0,
       },
       habilities: {
         above_avg: <number[]>[],
@@ -51,13 +55,13 @@ export class NPC {
         return this.randomArrayOfNumbers();
 
       default:
-        console.error('No recognizable type');
+        console.error(`Not known type ${config.type} for ${prop}`);
         return null;
     }
   }
 
-  defaultAssign(type: string): number | number[] {
-    switch (typeof type) {
+  defaultAssign(propValue: number | number[]): number | number[] {
+    switch (typeof propValue) {
       case 'number':
         return this.randomNumber(6);
       case 'object':
