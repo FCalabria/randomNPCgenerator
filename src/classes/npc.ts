@@ -33,12 +33,12 @@ export class NPC {
         moral: 0,
         archetype: 0,
       },
-      habilities: {
+      abilities: {
         above_avg: <number[]>[],
         below_avg: <number[]>[]
       },
     }
-    return this.dontRepeatHabilities(this.randomizeProperties(empty));
+    return this.dontRepeatAbilities(this.randomizeProperties(empty));
   }
 
   randomNumber(max: number, min: number = 0): number {
@@ -77,10 +77,10 @@ export class NPC {
     }
   }
 
-  dontRepeatHabilities(npc: NPC): NPC {
-    const aboveavg: number[] = npc.habilities.above_avg;
-    const belowavg = npc.habilities.below_avg;
-    npc.habilities.above_avg = aboveavg.map((value, i) => {
+  dontRepeatAbilities(npc: NPC): NPC {
+    const aboveavg: number[] = npc.abilities.above_avg;
+    const belowavg = npc.abilities.below_avg;
+    npc.abilities.above_avg = aboveavg.map((value, i) => {
       while (belowavg.includes(value) || (aboveavg.indexOf(value) !== -1 && aboveavg.indexOf(value) < i)) {
         value = this.randomNumber(this.propsParams.get('below_avg').max);
       }

@@ -5,7 +5,7 @@
   "prop_groups": {
     "appearance": "Appearance",
     "personality": "Personality",
-    "habilities": "Habilities"
+    "abilities": "Abilities"
   },
   "props": {
     "age": {
