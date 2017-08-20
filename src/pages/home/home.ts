@@ -33,14 +33,7 @@ export class HomePage {
   }
 
   setRandomNpc() {
-    const newNpc = new NPC();
-    for (const group in newNpc) {
-      for(const prop in newNpc[group]) {
-        if (!this.propertiesLocked.get(prop)) {
-          this.customNpc[group][prop] = newNpc[group][prop];
-        }
-      }
-    }
+    this.customNpc = new NPC(this.customNpc, this.propertiesLocked);
   }
 
   toogleLock(property: string) {

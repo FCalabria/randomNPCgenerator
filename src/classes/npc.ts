@@ -15,7 +15,7 @@ export class NPC {
     ['above_avg', { type: 'numsArray', max: 17, empty: 0, maxValues: 4 }],
     ['below_avg', { type: 'numsArray', max: 17, empty: 0, maxValues: 4 }],
   ]);
-  constructor() {
+  constructor(private currentNPC?: NPC, private locked_properties: Map<string, boolean> = new Map([['none', false]])) {
     const empty = {
       appearance: {
         age: 0,
@@ -78,11 +78,15 @@ export class NPC {
   }
 
   dontRepeatAbilities(npc: NPC): NPC {
-    const aboveavg: number[] = npc.abilities.above_avg;
-    const belowavg = npc.abilities.below_avg;
-    npc.abilities.above_avg = aboveavg.map((value, i) => {
-      while (belowavg.includes(value) || (aboveavg.indexOf(value) !== -1 && aboveavg.indexOf(value) < i)) {
-        value = this.randomNumber(this.propsParams.get('below_avg').max);
+    if (this.locked_properties.get('above_avg') && this.locked_properties.get('below_avg')) return;
+    const unblockedProp = this.locked_properties.get('above_avg') ? 'below_avg' : 'above_avg';
+    const theOtherProp = !this.locked_properties.get('above_avg') ? 'below_avg' : 'above_avg';
+    npc.abilities[unblockedProp] = npc.abilities[unblockedProp].map((value: number, i: number) => {
+      while (
+        npc.abilities[theOtherProp].includes(value)
+        || (npc.abilities[unblockedProp].indexOf(value) !== -1&& npc.abilities[unblockedProp].indexOf(value) < i)
+      ) {
+        value = this.randomNumber(this.propsParams.get(theOtherProp).max);
       }
       return value;
     });
@@ -93,9 +97,13 @@ export class NPC {
     for (const mainProp in nestedObject) {
       const mainValue = nestedObject[mainProp];
       for (const prop in mainValue) {
-        nestedObject[mainProp][prop] = this.propsParams.get(prop)
-          ? this.customAssign(prop)
-          : this.defaultAssign(mainValue[prop]);
+        if (!this.locked_properties || !this.locked_properties.get(prop)) {
+          nestedObject[mainProp][prop] = this.propsParams.get(prop)
+            ? this.customAssign(prop)
+            : this.defaultAssign(mainValue[prop]);
+        } else {
+          nestedObject[mainProp][prop] = this.currentNPC[mainProp][prop];
+        }
       }
     }
     return <NPC>nestedObject;
