@@ -4,16 +4,17 @@ interface customProp extends Object {
   empty: number,
   maxValues: number
 }
+type prop = 'genre' | 'mark' | 'archetype' | 'weakness' | 'virtue' | 'above_avg' | 'below_avg';
 export class NPC {
   [key: string]: any;
-  propsParams: Map<string, customProp> = new Map([
-    ['genre', { type: 'number', max: 2, empty: 0, maxValues: null }],
-    ['mark', { type: 'number', max: 10, empty: 0.5, maxValues: null }],
-    ['archetype', { type: 'number', max: 12, empty: 0, maxValues: null }],
-    ['weakness', { type: 'number', max: 10, empty: 0, maxValues: null }],
-    ['virtue', { type: 'number', max: 10, empty: 0, maxValues: null }],
-    ['above_avg', { type: 'numsArray', max: 17, empty: 0, maxValues: 4 }],
-    ['below_avg', { type: 'numsArray', max: 17, empty: 0, maxValues: 4 }],
+  propsParams: Map<prop, customProp> = new Map([
+    [<prop>'genre', { type: 'number', max: 2, empty: 0, maxValues: 0 }],
+    [<prop>'mark', { type: 'number', max: 10, empty: 0.5, maxValues: 0 }],
+    [<prop>'archetype', { type: 'number', max: 12, empty: 0, maxValues: 0 }],
+    [<prop>'weakness', { type: 'number', max: 10, empty: 0, maxValues: 0 }],
+    [<prop>'virtue', { type: 'number', max: 10, empty: 0, maxValues: 0 }],
+    [<prop>'above_avg', { type: 'numsArray', max: 17, empty: 0, maxValues: 4 }],
+    [<prop>'below_avg', { type: 'numsArray', max: 17, empty: 0, maxValues: 4 }],
   ]);
   constructor(private currentNPC?: NPC, private locked_properties: Map<string, boolean> = new Map([['none', false]])) {
     const empty = {
@@ -45,7 +46,7 @@ export class NPC {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  randomArrayOfNumbers({maxValues, biggerValue} = {maxValues: 0, biggerValue: 0}): number[] {
+  randomArrayOfNumbers({ maxValues, biggerValue } = { maxValues: 0, biggerValue: 0 }): number[] {
     const totalNumbers = maxValues || this.randomNumber(4, 1);
     return Array
       .from({ length: totalNumbers }, () => this.randomNumber(biggerValue || 10))
@@ -53,22 +54,26 @@ export class NPC {
       .filter((n, i, a) => a.indexOf(n) === i);
   }
 
-  customAssign(prop: string): number | number[] {
+  customAssign(prop: prop): number | number[] | undefined {
     const config = this.propsParams.get(prop);
+    if (!config) {
+      console.error(`Not known property ${prop}`);
+      return undefined;
+    }
     if (Math.random() <= config.empty) return undefined;
     switch (config.type) {
       case 'number':
         return this.randomNumber(config.max);
       case 'numsArray':
-        return this.randomArrayOfNumbers({maxValues: config.maxValues, biggerValue: config.max});
+        return this.randomArrayOfNumbers({ maxValues: config.maxValues, biggerValue: config.max });
 
       default:
         console.error(`Not known type ${config.type} for ${prop}`);
-        return null;
+        return undefined;
     }
   }
 
-  defaultAssign(propValue: number | number[]): number | number[] {
+  defaultAssign(propValue: number | number[]): number | number[] | undefined {
     switch (typeof propValue) {
       case 'number':
         return this.randomNumber(6);
@@ -77,19 +82,25 @@ export class NPC {
     }
   }
 
+  modifyRepeatedHab(value: number, i: number, npc: NPC,
+    unblockedProp: 'below_avg' | 'above_avg',
+    theOtherProp: 'below_avg' | 'above_avg') {
+    while (
+      npc.abilities[theOtherProp].includes(value)
+      || (npc.abilities[unblockedProp].indexOf(value) !== -1 && npc.abilities[unblockedProp].indexOf(value) < i)
+    ) {
+      const propConfig = this.propsParams.get(theOtherProp);
+      if (propConfig) value = this.randomNumber(propConfig.max);
+    }
+    return value;
+  }
+
   dontRepeatAbilities(npc: NPC): NPC {
-    if (this.locked_properties.get('above_avg') && this.locked_properties.get('below_avg')) return;
-    const unblockedProp = this.locked_properties.get('above_avg') ? 'below_avg' : 'above_avg';
-    const theOtherProp = !this.locked_properties.get('above_avg') ? 'below_avg' : 'above_avg';
-    npc.abilities[unblockedProp] = npc.abilities[unblockedProp].map((value: number, i: number) => {
-      while (
-        npc.abilities[theOtherProp].includes(value)
-        || (npc.abilities[unblockedProp].indexOf(value) !== -1&& npc.abilities[unblockedProp].indexOf(value) < i)
-      ) {
-        value = this.randomNumber(this.propsParams.get(theOtherProp).max);
-      }
-      return value;
-    });
+    if (!this.locked_properties.get('above_avg') && !this.locked_properties.get('below_avg')) {
+      const unblockedProp = this.locked_properties.get('above_avg') ? 'below_avg' : 'above_avg';
+      const theOtherProp = !this.locked_properties.get('above_avg') ? 'below_avg' : 'above_avg';
+      npc.abilities[unblockedProp] = npc.abilities[unblockedProp].map((value: number, i: number) => this.modifyRepeatedHab(value, i, npc, unblockedProp, theOtherProp));
+    }
     return npc;
   }
 
@@ -98,11 +109,11 @@ export class NPC {
       const mainValue = nestedObject[mainProp];
       for (const prop in mainValue) {
         if (!this.locked_properties || !this.locked_properties.get(prop)) {
-          nestedObject[mainProp][prop] = this.propsParams.get(prop)
-            ? this.customAssign(prop)
+          nestedObject[mainProp][prop] = this.propsParams.get(<prop>prop)
+            ? this.customAssign(<prop>prop)
             : this.defaultAssign(mainValue[prop]);
         } else {
-          nestedObject[mainProp][prop] = this.currentNPC[mainProp][prop];
+          nestedObject[mainProp][prop] = this.currentNPC && this.currentNPC[mainProp][prop];
         }
       }
     }
