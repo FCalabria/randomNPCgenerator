@@ -7,6 +7,16 @@ page-home {
     margin: 0;
     width: 100%;
   }
+  .chars-card--collapsed {
+    ion-label {
+      height: 45px;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+    ion-card-header {
+      border-bottom-width: 0;
+    }
+  }
   .chars-card__header {
     text-transform: uppercase;
     color: map-get($colors, dark);

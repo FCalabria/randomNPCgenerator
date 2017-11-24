@@ -3,14 +3,18 @@ import { TranslateService } from '@ngx-translate/core';
 import { NPC } from '../../classes/npc';
 // import { NavController } from 'ionic-angular';
 
+interface Card {
+  name: string;
+  collapsed: boolean;
+}
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
   public customNpc = new NPC();
-  public cards: string[] = Object.keys(this.customNpc);
-  private propertiesLocked: Map<string, boolean> = this.generatePropsLockMap();
+  public cards = this.generateCards();
+  private propertiesLocked = this.generatePropsLockMap();
   constructor(public translate: TranslateService) {
   }
 
@@ -36,6 +40,10 @@ export class HomePage {
     this.customNpc = new NPC(this.customNpc, this.propertiesLocked);
   }
 
+  toogleCollapse(card: Card) {
+    card.collapsed = !card.collapsed;
+  }
+
   toogleLock(property: string) {
     this.propertiesLocked.set(property, !this.propertiesLocked.get(property));
   }
@@ -57,6 +65,13 @@ export class HomePage {
     return this.getPropertyArray(group, property)
       .map(number => this.translate.instant(`props.${property}.${number}`))
       .reduce((prev, current) => !prev ? current : `${prev}, ${current.toLowerCase()}`);
+  }
+
+  private generateCards(): Card[] {
+    return Object.keys(this.customNpc).map(key => ({
+      name: key,
+      collapsed: false
+    }));
   }
 
   private generatePropsLockMap(): Map<any, any> {

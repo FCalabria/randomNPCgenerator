@@ -8,14 +8,14 @@
 </ion-header> -->
 
 <ion-content padding>
-  <ion-item ion-card margin-vertical *ngFor="let card of cards" class="chars-card">
-    <ion-card-header class="chars-card__header">
-      {{'prop_groups.' + card | translate}}
+  <ion-item ion-card margin-vertical *ngFor="let card of cards" class="chars-card" [ngClass]="{'chars-card--collapsed': card.collapsed}">
+    <ion-card-header class="chars-card__header" (click)="toogleCollapse(card)">
+      {{'prop_groups.' + card.name | translate}}
     </ion-card-header>
     <ion-list no-margin *ngIf="card">
-      <ion-item button text-wrap class="chars-card__item" [ngClass]="{'chars-card__item--locked': isPropLocked(prop)}" *ngFor="let prop of getCardProperties(card)" (click)="toogleLock(prop)">
-         <span class="chars-card__item-header">{{'props.' + prop + '.title' | translate}}:</span> {{getTranslatedValue(card, prop)}}
-           <ion-icon item-end [name]="isPropLocked(prop) ? 'lock' : 'unlock'"></ion-icon> 
+      <ion-item button text-wrap class="chars-card__item" [ngClass]="{'chars-card__item--locked': isPropLocked(prop)}" *ngFor="let prop of getCardProperties(card.name)" (click)="toogleLock(prop)">
+         <span class="chars-card__item-header">{{'props.' + prop + '.title' | translate}}:</span> {{getTranslatedValue(card.name, prop)}}
+           <ion-icon item-end [name]="isPropLocked(prop) ? 'lock' : 'unlock'"></ion-icon>
       </ion-item>
     </ion-list>
   </ion-item>
