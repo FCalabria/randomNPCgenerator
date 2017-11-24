@@ -46,7 +46,7 @@ export class HomePage {
 
   private getPropertyArray(group: string, property: string): number[] {
     const propValue: number[] | number | undefined = this.customNpc[group][property];
-    return propValue === undefined 
+    return propValue === undefined
       ? []
       : typeof propValue === 'number' ? [propValue] : propValue;
   }

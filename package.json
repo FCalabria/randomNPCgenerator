@@ -5,8 +5,8 @@
     "scripts": {
         "start": "npm run ionic:serve",
         "clean": "ionic-app-scripts clean",
-        "build": "ionic-app-scripts build",
-        "build:debug": "ionic cordova build android --debug --minifyjs --minifycss",
+        "build": "ENV=production ionic-app-scripts build",
+        "build:debug": "ENV=production ionic cordova build android --debug --minifyjs --minifycss",
         "lint": "ionic-app-scripts lint",
         "ionic:build": "ionic-app-scripts build",
         "ionic:serve": "ionic-app-scripts serve",
@@ -61,40 +61,58 @@
             ],
             "types": [
                 {
-                    "name": "feat \t\t A new feature",
-                    "value": ":gift:"
+                    "name": "feat",
+                    "description": "A new feature",
+                    "code": ":gift:",
+                    "emoji": "🎁"
                 },
                 {
-                    "name": "fix \t\t Fixing a bug",
-                    "value": ":bug:"
+                    "name": "fix",
+                    "description": "Fixing a bug",
+                    "code": ":bug:",
+                    "emoji": "🐛"
                 },
                 {
-                    "name": "style \t Visual changes",
-                    "value": ":lipstick:"
+                    "name": "style",
+                    "description": "Visual changes",
+                    "code": ":lipstick:",
+                    "emoji": "💄"
                 },
                 {
-                    "name": "docs \t\t Changing documentation",
-                    "value": ":memo:"
+                    "name": "docs",
+                    "description": "Changing documentation",
+                    "code": ":memo:",
+                    "emoji": "📝"
                 },
                 {
-                    "name": "refactor \t Refactoring code",
-                    "value": ":wrench:"
+                    "name": "refactor",
+                    "description": "Refactoring code",
+                    "code": ":wrench:",
+                    "emoji": "🔧"
                 },
                 {
-                    "name": "upgrade \t Upgrading dependancies",
-                    "value": ":thumbsup:"
+                    "name": "upgrade",
+                    "description": "Upgrading dependancies",
+                    "code": ":thumbsup:",
+                    "emoji": "👍"
                 },
                 {
-                    "name": "downgrade \t Downgrading dependancies",
-                    "value": ":thumbsup:"
+                    "name": "downgrade",
+                    "description": "Downgrading dependancies",
+                    "code": ":thumbsup:",
+                    "emoji": "👎"
                 },
                 {
-                    "name": "test \t\t Writing/fixing tests",
-                    "value": ":tada:"
+                    "name": "test",
+                    "description": "Writing/fixing tests",
+                    "code": ":tada:",
+                    "emoji": "🎉"
                 },
                 {
-                    "name": "chore \t Other tasks",
-                    "value": ":dancer:"
+                    "name": "chore",
+                    "description": "Other tasks",
+                    "code": ":dancer:",
+                    "emoji": "💃"
                 }
             ]
         }
